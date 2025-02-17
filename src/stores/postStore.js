@@ -1,4 +1,5 @@
 import { postData } from '@/api/post'
+import { searchPost } from '@/api/searchPost'
 import { defineStore } from 'pinia'
 
 export const usePostStore = defineStore('post', {
@@ -20,47 +21,21 @@ export const usePostStore = defineStore('post', {
         this.loading = false
       }
     },
+    async searchPosts(keyword) {
+      if (!keyword.trim()) {
+        await this.fetchData()
+        return
+      }
+      this.loading = true
+      this.error = null
+      try {
+        const response = await searchPost(keyword)
+        this.posts = response.data
+      } catch (error) {
+        this.error = error
+      } finally {
+        this.loading = false
+      }
+    },
   },
 })
-
-// [
-//   {
-//     id: 2,
-//     title: 'hello world',
-//     content: 'hello world! i like js ',
-//     createdAt: '2025-02-11T13:04:23.309Z',
-//     tags: [],
-//     author: {
-//       id: 1,
-//       login: 'vitalik',
-//       avatarUrl: null,
-//       createdAt: '2025-02-11T13:04:23.221Z',
-//     },
-//   },
-//   {
-//     id: 2,
-//     title: 'hello world',
-//     content: 'hello world! i like js ',
-//     createdAt: '2025-02-11T13:04:23.309Z',
-//     tags: [],
-//     author: {
-//       id: 1,
-//       login: 'vitalik',
-//       avatarUrl: null,
-//       createdAt: '2025-02-11T13:04:23.221Z',
-//     },
-//   },
-//   {
-//     id: 2,
-//     title: 'hello world',
-//     content: 'hello world! i like js ',
-//     createdAt: '2025-02-11T13:04:23.309Z',
-//     tags: [],
-//     author: {
-//       id: 1,
-//       login: 'vitalik',
-//       avatarUrl: null,
-//       createdAt: '2025-02-11T13:04:23.221Z',
-//     },
-//   },
-// ],
