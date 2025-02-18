@@ -1,5 +1,8 @@
 <script setup>
 import AppFilter from './AppFilter.vue'
+const al = () => {
+  alert('hello!')
+}
 </script>
 <template>
   <el-menu
@@ -11,14 +14,23 @@ import AppFilter from './AppFilter.vue'
     active-text-color="#ffd04b"
     @select="handleSelect"
   >
-    <el-menu-item index="1">App News</el-menu-item>
-    <el-sub-menu index="2">
-      <template #title>Sort</template>
-      <el-menu-item index="2-1">by date</el-menu-item>
-      <el-menu-item index="2-2">by title</el-menu-item>
-      <el-menu-item index="2-3">by author</el-menu-item>
-    </el-sub-menu>
-    <AppFilter />
+    <div class="main">
+      <el-menu-item index="1">App News</el-menu-item>
+      <el-menu-item index="2">Profile</el-menu-item>
+    </div>
+    <div class="filter">
+      <el-sub-menu index="3">
+        <template #title>Sort</template>
+        <el-menu-item index="3-1">by date</el-menu-item>
+        <el-menu-item index="3-2">by title</el-menu-item>
+        <el-menu-item index="3-3">by author</el-menu-item>
+      </el-sub-menu>
+      <AppFilter />
+    </div>
+    <div class="header-button">
+      <button @click="al" class="btn">log in</button>
+      <button class="btn">log up</button>
+    </div>
   </el-menu>
 </template>
 <style>
@@ -29,5 +41,28 @@ body {
 .el-menu-demo {
   display: flex;
   align-items: center;
+  justify-content: space-around;
+}
+.filter {
+  display: flex;
+  align-items: center;
+}
+.main {
+  display: flex;
+}
+.btn {
+  background-color: chartreuse;
+  border: none;
+  height: 40px;
+  width: 90px;
+  color: white;
+  font-size: 16px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.header-button {
+  display: flex;
+  gap: 10px;
 }
 </style>
