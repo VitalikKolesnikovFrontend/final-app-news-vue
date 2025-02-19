@@ -2,10 +2,6 @@
 import { useModalStore } from '@/stores/modalStore'
 import AppFilter from './AppFilter.vue'
 const modalStore = useModalStore()
-const isOpen = () => {
-  modalStore.isOpen = true
-  console.log(modalStore.isOpen)
-}
 </script>
 <template>
   <el-menu
@@ -31,8 +27,8 @@ const isOpen = () => {
       <AppFilter />
     </div>
     <div class="header-button">
-      <button @click="isOpen" class="btn">log in</button>
-      <button @click="isOpen" class="btn">log up</button>
+      <button @click="modalStore.openModal('register')" class="btn">log up</button>
+      <button @click="modalStore.openModal('login')" class="btn">log in</button>
     </div>
   </el-menu>
 </template>

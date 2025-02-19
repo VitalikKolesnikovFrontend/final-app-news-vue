@@ -1,18 +1,19 @@
 <script setup>
 import { useModalStore } from '@/stores/modalStore'
-import { ref } from 'vue'
+import { useAuthStore } from '@/stores/registerStore'
 
-const isOpen = ref(false) // Состояние модального окна
 const modalStore = useModalStore()
-const isClosed = () => {
-  modalStore.isOpen = false
+const authStore = useAuthStore()
+const submitForm = async (formData) => {
+  authStore.fetchData(formData)
+  modalStore.closeModal()
 }
 </script>
 <template>
   <div v-if="modalStore.isOpen" class="modal-overlay" @click="isOpen = false">
     <div class="modal" @click.stop>
-      <h2>Регистрация</h2>
-      <FormKit type="form" @submit="register" :actions="false">
+      <h2>{{ modalStore.mode === 'register' ? 'Регистрация' : 'Авторизация' }}</h2>
+      <FormKit type="form" @submit="submitForm" :actions="false">
         <template #default="{ state }">
           <FormKit type="email" name="email" label="Email" validation="required|email" />
           <FormKit type="text" name="login" label="Логин" validation="required" />
@@ -22,9 +23,9 @@ const isClosed = () => {
 
           <div class="modal-actions">
             <button class="custom-btn" type="submit" :disabled="!state.valid">
-              Зарегистрироваться
+              {{ modalStore.mode === 'register' ? 'Зарегистрироваться' : 'Авторизоваться' }}
             </button>
-            <button class="close-btn" type="button" @click="isClosed">Отмена</button>
+            <button class="close-btn" type="button" @click="modalStore.closeModal()">Отмена</button>
           </div>
         </template>
       </FormKit>
