@@ -1,7 +1,10 @@
 <script setup>
 import { useModalStore } from '@/stores/modalStore'
 import AppFilter from './AppFilter.vue'
+import { useAuthStore } from '@/stores/registerStore'
 const modalStore = useModalStore()
+const authStore = useAuthStore()
+console.log(authStore.token)
 </script>
 <template>
   <el-menu
@@ -12,6 +15,7 @@ const modalStore = useModalStore()
     text-color="#fff"
     active-text-color="#ffd04b"
     @select="handleSelect"
+    v-if="!authStore.token"
   >
     <div class="main">
       <el-menu-item index="1">App News</el-menu-item>
@@ -29,6 +33,34 @@ const modalStore = useModalStore()
     <div class="header-button">
       <button @click="modalStore.openModal('register')" class="btn">log up</button>
       <button @click="modalStore.openModal('login')" class="btn">log in</button>
+    </div>
+  </el-menu>
+  <el-menu
+    :default-active="activeIndex2"
+    class="el-menu-demo"
+    mode="horizontal"
+    background-color="cornflowerblue"
+    text-color="#fff"
+    active-text-color="#ffd04b"
+    @select="handleSelect"
+    v-if="authStore.token"
+  >
+    <div class="main">
+      <el-menu-item index="1">App News</el-menu-item>
+      <el-menu-item index="2">Profile</el-menu-item>
+    </div>
+    <div class="filter">
+      <el-sub-menu index="3">
+        <template #title>Sort</template>
+        <el-menu-item index="3-1">by date</el-menu-item>
+        <el-menu-item index="3-2">by title</el-menu-item>
+        <el-menu-item index="3-3">by author</el-menu-item>
+      </el-sub-menu>
+      <AppFilter />
+    </div>
+    <div class="header-button">
+      <el-avatar shape="square" :size="size" :src="squareUrl" />
+      <button @click="authStore.logout" class="btn">log out</button>
     </div>
   </el-menu>
 </template>

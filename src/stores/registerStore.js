@@ -13,9 +13,16 @@ export const useAuthStore = defineStore('auth', {
         const response = await authUser(data)
         this.user = response.data.user
         this.token = response.data.token
+
+        localStorage.setItem('token', response.data.token)
       } catch (error) {
         this.error = error
       }
+    },
+    logout() {
+      this.user = null
+      this.token = null
+      localStorage.removeItem('token')
     },
   },
 })
