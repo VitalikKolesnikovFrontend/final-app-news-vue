@@ -1,13 +1,7 @@
-<script setup>
-import AppHeader from './components/AppHeader.vue'
-import AppListPost from './components/AppListPost.vue'
-import AppRegister from './components/AppRegister.vue'
-</script>
+<script setup></script>
 
 <template>
-  <AppHeader />
-  <AppListPost />
-  <AppRegister />
+  <router-view />
 </template>
 
 <style scoped></style>

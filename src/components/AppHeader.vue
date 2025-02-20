@@ -4,6 +4,8 @@ import AppFilter from './AppFilter.vue'
 import { useAuthStore } from '@/stores/registerStore'
 const modalStore = useModalStore()
 const authStore = useAuthStore()
+const avatar = 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'
+
 console.log(authStore.token)
 </script>
 <template>
@@ -18,8 +20,9 @@ console.log(authStore.token)
     v-if="!authStore.token"
   >
     <div class="main">
-      <el-menu-item index="1">App News</el-menu-item>
-      <el-menu-item index="2">Profile</el-menu-item>
+      <RouterLink to="/">
+        <el-menu-item index="1">App News</el-menu-item>
+      </RouterLink>
     </div>
     <div class="filter">
       <el-sub-menu index="3">
@@ -46,8 +49,12 @@ console.log(authStore.token)
     v-if="authStore.token"
   >
     <div class="main">
-      <el-menu-item index="1">App News</el-menu-item>
-      <el-menu-item index="2">Profile</el-menu-item>
+      <RouterLink to="/">
+        <el-menu-item index="1">App News</el-menu-item>
+      </RouterLink>
+      <RouterLink to="/user/1">
+        <el-menu-item index="2">Profile</el-menu-item>
+      </RouterLink>
     </div>
     <div class="filter">
       <el-sub-menu index="3">
@@ -59,7 +66,7 @@ console.log(authStore.token)
       <AppFilter />
     </div>
     <div class="header-button">
-      <el-avatar shape="square" :size="size" :src="squareUrl" />
+      <el-avatar shape="square" :size="size" :src="avatar" alt="US" />
       <button @click="authStore.logout" class="btn">log out</button>
     </div>
   </el-menu>
