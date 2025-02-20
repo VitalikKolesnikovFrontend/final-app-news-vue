@@ -5,8 +5,6 @@ import { useAuthStore } from '@/stores/registerStore'
 const modalStore = useModalStore()
 const authStore = useAuthStore()
 const avatar = 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'
-
-console.log(authStore.token)
 </script>
 <template>
   <el-menu

@@ -15,6 +15,7 @@ export const useAuthStore = defineStore('auth', {
         this.token = response.data.token
 
         localStorage.setItem('token', response.data.token)
+        localStorage.setItem('user', JSON.stringify(response.data.user))
       } catch (error) {
         this.error = error
       }
@@ -23,12 +24,16 @@ export const useAuthStore = defineStore('auth', {
       this.user = null
       this.token = null
       localStorage.removeItem('token')
+      localStorage.removeItem('user')
     },
     initializeAuth() {
       const storedToken = localStorage.getItem('token')
-      if (storedToken) {
+      const storedUser = localStorage.getItem('user')
+      if (storedToken && storedUser) {
         this.token = storedToken
+        this.user = JSON.parse(storedUser)
       }
     },
   },
+  persist: localStorage,
 })
