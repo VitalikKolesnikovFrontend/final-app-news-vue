@@ -2,7 +2,6 @@
 import { usePostStore } from '@/stores/postStore'
 import { ref, watch } from 'vue'
 const posts = usePostStore()
-console.log(posts.posts)
 const keyword = ref('')
 watch(keyword, () => {
   posts.searchPosts(keyword.value)
